@@ -4,69 +4,108 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Osteria Monët - Menù</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
 <style>
-/* stili come prima */
-body { font-family:'Montserrat',sans-serif; margin:0; background:#faf8f5; color:#1a1a1a; }
-.container { max-width:900px; margin:40px auto; padding:30px; background:rgba(255,255,255,0.97); border:3px solid #c9a24d; border-radius:15px; }
-.accordion-btn{width:100%;padding:15px;font-size:22px;margin-top:18px;border:2px solid #c9a24d;border-radius:10px;cursor:pointer;text-align:left;background:#fff;}
-.sub-btn{width:100%;padding:12px;margin-top:10px;font-size:18px;border-left:5px solid #c9a24d;border-radius:6px;cursor:pointer;background:#fdfdfd;text-align:left;}
-.content{display:none;overflow:hidden;padding:0 5px;}
-.menu-item{display:flex;justify-content:space-between;align-items:flex-start;margin:10px 0;font-size:15px;border-bottom:1px dotted #c9a24d60;padding-bottom:5px;}
-.item-desc{font-size:14px;color:#555;font-style:italic;}
-.price{font-weight:bold;color:#2f5d50;white-space:nowrap;margin-left:10px;}
+body { margin:0; font-family:'Montserrat',sans-serif; background: repeating-linear-gradient(45deg,#ffffff,#ffffff 20px,#faf8f5 20px,#faf8f5 40px); color:#1a1a1a; }
+.container { max-width:900px; margin:40px auto; padding:30px; background:rgba(255,255,255,0.97); border:3px solid #c9a24d; box-shadow:0 5px 25px rgba(0,0,0,0.08); border-radius:15px; }
+.header { text-align:center; margin-bottom:15px; }
+.header h1 { font-family:'Playfair Display',serif; font-size:44px; color:#c9a24d; margin-bottom:5px; }
+.header span { font-size:15px; color:#2f5d50; letter-spacing:3px; text-transform:uppercase; }
+.degustazione { text-align:center; background:#faf6ec; color:#2f5d50; border:1px dashed #c9a24d; border-radius:10px; padding:10px 15px; font-family:'Playfair Display',serif; font-size:20px; margin:15px auto 30px; max-width:400px; }
+.accordion-btn { width:100%; padding:15px 18px; margin-top:18px; font-size:22px; font-family:'Playfair Display',serif; background:#ffffff; border:2px solid #c9a24d; color:#2f5d50; cursor:pointer; text-align:left; border-radius:10px; transition:all 0.3s ease; }
+.accordion-btn:hover { background:#faf6ec; transform:scale(1.01); }
+.sub-btn { width:100%; padding:12px 15px; margin-top:10px; font-size:18px; background:#fdfdfd; border-left:5px solid #c9a24d; border-right:2px solid #c9a24d; border-top:none; border-bottom:none; cursor:pointer; text-align:left; border-radius:6px; transition:all 0.3s ease; }
+.sub-btn:hover { background:#f9f5ef; }
+.content { display:none; overflow:hidden; padding:0 5px; animation:fadeIn 0.4s ease; }
+.menu-item { display:flex; justify-content:space-between; align-items:flex-start; margin:10px 0; font-size:15px; border-bottom:1px dotted #c9a24d60; padding-bottom:5px; }
+.menu-item span { display:block; }
+.item-name { font-weight:500; }
+.item-desc { font-size:14px; color:#555; font-style:italic; }
+.price { font-weight:bold; color:#2f5d50; white-space:nowrap; margin-left:10px; }
+.allergeni { margin-top:50px; border-top:2px solid #c9a24d50; padding-top:20px; }
+.allergeni h2 { font-family:'Playfair Display',serif; color:#c9a24d; text-align:center; margin-bottom:10px; }
+.allergeni ol { margin:0 auto; padding-left:20px; max-width:600px; color:#2f5d50; line-height:1.6; font-size:14px; }
+@media(max-width:600px){ .accordion-btn{font-size:20px} .sub-btn{font-size:17px} .menu-item{flex-direction:column;gap:4px} .price{align-self:flex-end} }
+@keyframes fadeIn{from{opacity:0;transform:translateY(-5px);}to{opacity:1;transform:translateY(0);}}
 </style>
 </head>
 <body>
 <div class="container">
-<h1>Osteria Monët</h1>
-<div id="menu"></div>
+  <div class="header">
+    <h1>Osteria Monët</h1>
+    <span>Cucina d'autore</span>
+  </div>
+  <div class="degustazione">Menù degustazione €60</div>
+  <div id="menu"></div>
+  <div class="allergeni">
+    <h2>Allergeni</h2>
+    <ol>
+      <li>Cereali contenenti glutine</li>
+      <li>Crostacei</li>
+      <li>Uova</li>
+      <li>Pesce</li>
+      <li>Arachidi</li>
+      <li>Soia</li>
+      <li>Latte</li>
+      <li>Frutta a guscio</li>
+      <li>Sedano</li>
+      <li>Senape</li>
+      <li>Semi di sesamo</li>
+      <li>Anidride solforosa e solfiti</li>
+      <li>Lupini</li>
+      <li>Molluschi</li>
+    </ol>
+  </div>
 </div>
 
 <script>
-const defaultMenu = {
-  mare:{antipasti:[],primi:[],secondi:[],dolci:[]},
-  terra:{antipasti:[],primi:[],secondi:[],dolci:[]},
-  vini:{bianchi:[],rossi:[],bollicine:[],dolci:[]},
-  cocktail:{classici:[],signature:[],distillati:[]}
-};
-
-let menuData = defaultMenu;
-const GITHUB_RAW_URL = "https://raw.githubusercontent.com/osteriamonet/osteriamonet.github.io/main/menu/menuData.json";
 const menuContainer = document.getElementById("menu");
+const menuJSONUrl = "https://osteriamonet.github.io/menu/menuData.json"; // qui punta al tuo JSON pubblico
 
-async function loadMenu(){
-  try{
-    const resp = await fetch(GITHUB_RAW_URL);
-    if(!resp.ok) throw new Error("Impossibile caricare JSON");
-    menuData = await resp.json();
-    createMenu();
-  }catch(e){ console.error(e); alert("Errore caricamento menu, userò menu default"); createMenu(); }
-}
+fetch(menuJSONUrl)
+.then(res=>res.json())
+.then(menuData=>{ renderMenu(menuData); })
+.catch(err=>{
+  console.error(err);
+  menuContainer.innerHTML="<p style='color:red;text-align:center'>Impossibile caricare il menù.</p>";
+});
 
-function createMenu(){
+function renderMenu(menuData){
+  const categoryIcons = { mare:"🌊", terra:"🌿", vini:"🍷", cocktail:"🍸" };
+  const categoryLabels = { mare:"Menù Mare", terra:"Menù Terra", vini:"Carta dei Vini", cocktail:"Cocktail & Distillati" };
+  
   menuContainer.innerHTML="";
   for(let cat in menuData){
-    const btn=document.createElement("button"); btn.className="accordion-btn"; btn.innerText=cat;
+    const btn=document.createElement("button"); btn.className="accordion-btn";
+    btn.innerHTML=`${categoryIcons[cat]||"📜"} ${categoryLabels[cat]||cat}`;
     const content=document.createElement("div"); content.className="content";
+
     for(let sec in menuData[cat]){
-      const subBtn=document.createElement("button"); subBtn.className="sub-btn"; subBtn.innerText=sec;
+      const subBtn=document.createElement("button"); subBtn.className="sub-btn"; subBtn.innerText=sec.charAt(0).toUpperCase()+sec.slice(1);
       const subContent=document.createElement("div"); subContent.className="content";
       const items=menuData[cat][sec];
-      if(items.length===0){ const p=document.createElement("p"); p.innerText="Nessun elemento inserito"; subContent.appendChild(p); }
-      else items.forEach(item=>{
-        const div=document.createElement("div"); div.className="menu-item";
-        div.innerHTML=`<div><span class="item-name">${item.nome}</span>${item.descrizione?`<span class="item-desc">${item.descrizione}</span>`:""}</div><span class="price">${item.prezzo?"€"+item.prezzo:""}</span>`;
-        subContent.appendChild(div);
-      });
+
+      if(items.length===0){
+        const emptyMsg=document.createElement("p"); emptyMsg.style.color="#777"; emptyMsg.style.fontStyle="italic"; emptyMsg.textContent="Nessun elemento inserito";
+        subContent.appendChild(emptyMsg);
+      } else {
+        items.forEach(item=>{
+          const div=document.createElement("div"); div.className="menu-item";
+          div.innerHTML=`<div><span class="item-name">${item.nome||"Senza nome"}</span>${item.descrizione?`<span class="item-desc">${item.descrizione}</span>`:""}</div>
+            <span class="price">${item.prezzo? "€"+item.prezzo:""}</span>`;
+          subContent.appendChild(div);
+        });
+      }
+
       subBtn.onclick=()=>{ subContent.style.display=subContent.style.display==="block"?"none":"block"; };
       content.appendChild(subBtn); content.appendChild(subContent);
     }
+
     btn.onclick=()=>{ content.style.display=content.style.display==="block"?"none":"block"; };
     menuContainer.appendChild(btn); menuContainer.appendChild(content);
   }
 }
-
-loadMenu();
 </script>
+
 </body>
 </html>
