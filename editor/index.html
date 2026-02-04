@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Osteria Monët - Editor Menù</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap" rel="stylesheet">
+<style>
+body { font-family:'Montserrat',sans-serif; background:#faf8f5; margin:0; padding:20px; color:#2f5d50; }
+.container { max-width:950px; margin:auto; background:white; padding:20px 30px; border:2px solid #c9a24d; border-radius:10px; box-shadow:0 3px 15px rgba(0,0,0,0.08); }
+h1,h2 { text-align:center; color:#c9a24d; }
+button { font-family:inherit; font-size:14px; padding:4px 8px; margin:2px; border-radius:6px; border:1px solid #ccc; cursor:pointer; background:#2f5d50; color:white; }
+button:hover { background:#c9a24d; color:#2f5d50; }
+input,textarea,select { font-family:inherit; font-size:14px; padding:4px 6px; margin:2px; border-radius:6px; border:1px solid #ccc; }
+ul { list-style:none; padding-left:10px; } li { margin:4px 0; }
+</style>
+</head>
+<body>
+<div class="container">
+<h1>Editor Completo - Osteria Monët</h1>
+<p>Gestisci macrocategorie, sottosezioni e piatti. Tutto salvato in <b>localStorage.menuData</b>.</p>
+
+<section>
+  <h2>Macrocategorie</h2>
+  <input id="newCategory" placeholder="Nuova categoria...">
+  <button onclick="aggiungiCategoria()">➕ Aggiungi</button>
+  <ul id="categoryList"></ul>
+</section>
+
+<section>
+  <h2>Sottosezioni</h2>
+  <select id="selectCategory"></select>
+  <input id="newSection" placeholder="Nuova sottosezione...">
+  <button onclick="aggiungiSezione()">➕ Aggiungi</button>
+  <ul id="sectionList"></ul>
+</section>
+
+<section>
+  <h2>Piatti</h2>
+  <select id="selectCatForItem"></select>
+  <select id="selectSecForItem"></select>
+  <input id="itemName" placeholder="Nome piatto">
+  <input id="itemPrice" placeholder="Prezzo (€)">
+  <textarea id="itemDesc" placeholder="Descrizione"></textarea>
+  <button onclick="aggiungiPiatto()">➕ Aggiungi</button>
+  <ul id="itemList"></ul>
+</section>
+
+<hr>
+
+<section>
+  <h2>Backup / Gestione</h2>
+  <button onclick="esportaMenu()">⬇️ Esporta JSON</button>
+  <input type="file" id="importFile" accept=".json" onchange="importaMenu(event)">
+  <button onclick="resetMenu()">⚠️ Reset</button>
+</section>
+</div>
+
+<script>
+const defaultMenu = { mare:{}, terra:{}, vini:{}, cocktail:{} };
+let menuData = JSON.parse(localStorage.getItem("menuData")) || JSON.parse(JSON.stringify(defaultMenu));
+
+function salvaMenu(){ localStorage.setItem("menuData",JSON.stringify(menuData)); localStorage.setItem("menuData_lastUpdate",Date.now()); mostraTutto(); }
+
+function aggiornaCategorie(){
+  const sel1=document.getElementById("selectCategory"),sel2=document.getElementById("selectCatForItem"),list=document.getElementById("categoryList");
+  sel1.innerHTML=""; sel2.innerHTML=""; list.innerHTML="";
+  for(let cat in menuData){
+    const li=document.createElement("li"); li.innerHTML=`${cat} <button onclick="rimuoviCategoria('${cat}')">❌</button>`; list.appendChild(li);
+    const o1=document.createElement("option"); o1.value=cat;o1.innerText=cat;sel1.appendChild(o1);
+    const o2=document.createElement("option"); o2.value=cat;o2.innerText=cat;sel2.appendChild(o2);
+  }
+  aggiornaSezioni();
+}
+function aggiungiCategoria(){ const v=document.getElementById("newCategory").value.trim().toLowerCase(); if(!v)return alert("Nome?"); if(menuData[v])return alert("Già esiste"); menuData[v]={}; document.getElementById("newCategory").value=""; salvaMenu(); }
+function rimuoviCategoria(cat){ if(confirm("Eliminare categoria?")){ delete menuData[cat]; salvaMenu(); } }
+
+function aggiornaSezioni(){
+  const cat=document.getElementById("selectCategory").value,secList=document.getElementById("sectionList"),selSec=document.getElementById("selectSecForItem");
+  secList.innerHTML=""; selSec.innerHTML="";
+  if(!cat||!menuData[cat])return;
+  for(let s in menuData[cat]){
+    const li=document.createElement("li"); li.innerHTML=`${s} <button onclick="rimuoviSezione('${cat}','${s}')">❌</button>`; secList.appendChild(li);
+    const opt=document.createElement("option"); opt.value=s; opt.innerText=s; selSec.appendChild(opt);
+  }
+  aggiornaPiatti();
+}
+function aggiungiSezione(){ const c=document.getElementById("selectCategory").value,s=document.getElementById("newSection").value.trim().toLowerCase();
+  if(!c)return alert("Scegli categoria"); if(!s)return alert("Nome sottosezione?"); if(menuData[c][s])return alert("Già esiste"); menuData[c][s]=[]; document.getElementById("newSection").value=""; salvaMenu(); }
+function rimuoviSezione(c,s){ if(confirm("Eliminare sezione?")){ delete menuData[c][s]; salvaMenu(); } }
+
+function aggiornaPiatti(){
+  const c=document.getElementById("selectCatForItem").value,s=document.getElementById("selectSecForItem").value,list=document.getElementById("itemList");
+  list.innerHTML=""; if(!c||!s||!menuData[c]||!menuData[c][s])return;
+  menuData[c][s].forEach((it,i)=>{ const li=document.createElement("li"); li.innerHTML=`${it.nome} - €${it.prezzo} <i>${it.descrizione||""}</i> <button onclick="rimuoviPiatto('${c}','${s}',${i})">❌</button>`; list.appendChild(li); });
+}
+function aggiungiPiatto(){ const c=document.getElementById("selectCatForItem").value,s=document.getElementById("selectSecForItem").value;
+  const n=document.getElementById("itemName").value.trim(),p=document.getElementById("itemPrice").value.trim(),d=document.getElementById("itemDesc").value.trim();
+  if(!c||!s)return alert("Scegli categoria e sezione"); if(!n)return alert("Nome piatto?");
+  menuData[c][s].push({nome:n,prezzo:p,descrizione:d}); document.getElementById("itemName").value="";document.getElementById("itemPrice").value="";document.getElementById("itemDesc").value=""; salvaMenu(); }
+function rimuoviPiatto(c,s,i){ menuData[c][s].splice(i,1); salvaMenu(); }
+
+function esportaMenu(){ const blob=new Blob([JSON.stringify(menuData,null,2)],{type:"application/json"}); const a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download="menuData.json"; a.click(); }
+function importaMenu(e){ const f=e.target.files[0]; if(!f)return; const r=new FileReader(); r.onload=x=>{ menuData=JSON.parse(x.target.result); salvaMenu(); }; r.readAsText(f); }
+function resetMenu(){ if(confirm("Cancellare tutto?")){ menuData=JSON.parse(JSON.stringify(defaultMenu)); salvaMenu(); } }
+
+function mostraTutto(){ aggiornaCategorie(); aggiornaSezioni(); aggiornaPiatti(); }
+document.getElementById("selectCategory").addEventListener("change",aggiornaSezioni);
+document.getElementById("selectCatForItem").addEventListener("change",aggiornaSezioni);
+document.getElementById("selectSecForItem").addEventListener("change",aggiornaPiatti);
+mostraTutto();
+</script>
+</body>
+</html>
