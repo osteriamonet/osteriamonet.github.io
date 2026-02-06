@@ -17,13 +17,13 @@ body {
 
 .container {
     max-width: 900px;
-    width: 95%;
-    margin: 30px auto;
-    padding: 25px 20px;
+    margin: 20px auto;
+    padding: 15px 20px;
     background: rgba(255, 255, 255, 0.97);
     border: 3px solid #c9a24d;
     box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
     border-radius: 15px;
+    box-sizing: border-box;
 }
 
 .header {
@@ -33,19 +33,19 @@ body {
 
 .header h1 {
     font-family: 'Playfair Display', serif;
-    font-size: 44px;
+    font-size: 36px;
     color: #c9a24d;
     margin-bottom: 5px;
 }
 
 .header span {
-    font-size: 15px;
+    font-size: 14px;
     color: #2f5d50;
-    letter-spacing: 3px;
+    letter-spacing: 2px;
     text-transform: uppercase;
 }
 
-/* POSTILLA DEGUSTAZIONE */
+/* Postilla degustazione */
 .degustazione {
     text-align: center;
     background: #faf6ec;
@@ -54,17 +54,17 @@ body {
     border-radius: 10px;
     padding: 10px 15px;
     font-family: 'Playfair Display', serif;
-    font-size: 20px;
+    font-size: 18px;
     margin: 15px auto 30px;
     max-width: 400px;
 }
 
-/* BOTTONI PRINCIPALI */
+/* Accordion principale */
 .accordion-btn {
     width: 100%;
-    padding: 15px 18px;
-    margin-top: 18px;
-    font-size: 22px;
+    padding: 12px 15px;
+    margin-top: 15px;
+    font-size: 18px;
     font-family: 'Playfair Display', serif;
     background: #ffffff;
     border: 2px solid #c9a24d;
@@ -80,12 +80,12 @@ body {
     transform: scale(1.01);
 }
 
-/* SOTTOBOTTONI */
+/* Sottopulsanti */
 .sub-btn {
     width: 100%;
-    padding: 12px 15px;
-    margin-top: 10px;
-    font-size: 18px;
+    padding: 10px 12px;
+    margin-top: 8px;
+    font-size: 16px;
     background: #fdfdfd;
     border-left: 5px solid #c9a24d;
     border-right: 2px solid #c9a24d;
@@ -101,7 +101,7 @@ body {
     background: #f9f5ef;
 }
 
-/* CONTENUTI */
+/* Contenuto */
 .content {
     display: none;
     overflow: hidden;
@@ -109,15 +109,16 @@ body {
     animation: fadeIn 0.4s ease;
 }
 
+/* Menu item */
 .menu-item {
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap; /* Permette ai contenuti di andare a capo */
     align-items: flex-start;
-    margin: 10px 0;
+    margin: 8px 0;
     font-size: 15px;
     border-bottom: 1px dotted #c9a24d60;
-    padding-bottom: 5px;
-    flex-wrap: wrap;
+    padding-bottom: 4px;
 }
 
 .menu-item span {
@@ -126,104 +127,60 @@ body {
 
 .item-name {
     font-weight: 500;
+    flex: 1 1 auto; /* Occupa lo spazio disponibile */
 }
 
 .item-desc {
     font-size: 14px;
     color: #555;
     font-style: italic;
+    flex: 1 1 100%;
 }
 
 .price {
     font-weight: bold;
     color: #2f5d50;
-    white-space: nowrap;
     margin-left: 10px;
+    white-space: nowrap; /* resta su una linea ma non forza scroll */
 }
 
-/* SEZIONE ALLERGENI */
+/* Allergeni */
 .allergeni {
-    margin-top: 50px;
+    margin-top: 30px;
     border-top: 2px solid #c9a24d50;
-    padding-top: 20px;
-}
-
-.allergeni h2 {
-    font-family: 'Playfair Display', serif;
-    color: #c9a24d;
-    text-align: center;
-    margin-bottom: 10px;
+    padding-top: 15px;
 }
 
 .allergeni ol {
     margin: 0 auto;
     padding-left: 20px;
-    max-width: 600px;
+    max-width: 100%;
     color: #2f5d50;
     line-height: 1.6;
     font-size: 14px;
 }
 
-/* 📱 MOBILE RESPONSIVE */
-@media (max-width: 768px) {
-    .container {
-        padding: 20px 15px;
-        margin: 15px auto;
-        border-width: 2px;
-    }
-
-    .header h1 {
-        font-size: 32px;
-    }
-
-    .header span {
-        font-size: 13px;
-        letter-spacing: 2px;
-    }
-
-    .degustazione {
-        font-size: 18px;
-        padding: 8px 12px;
-        max-width: 90%;
-    }
-
-    .accordion-btn {
-        font-size: 18px;
-        padding: 12px 14px;
-    }
-
-    .sub-btn {
-        font-size: 16px;
-        padding: 10px 12px;
-    }
-
-    .menu-item {
-        flex-direction: column;
-        align-items: flex-start;
-        font-size: 14px;
-    }
-
-    .price {
-        align-self: flex-end;
-        font-size: 14px;
-    }
-
-    .allergeni ol {
-        font-size: 13px;
-        padding-left: 15px;
-    }
-}
-
-/* ANIMAZIONE */
+/* Animazioni */
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(-5px); }
     to { opacity: 1; transform: translateY(0); }
+}
+
+/* Media query per smartphone */
+@media (max-width: 768px) {
+    .container { margin: 10px; padding: 10px 12px; }
+    .header h1 { font-size: 28px; }
+    .header span { font-size: 12px; }
+    .degustazione { font-size: 16px; padding: 8px 10px; }
+    .accordion-btn { font-size: 16px; padding: 10px 12px; }
+    .sub-btn { font-size: 14px; padding: 8px 10px; }
+    .menu-item { flex-direction: column; gap: 4px; }
+    .price { align-self: flex-end; }
 }
 </style>
 </head>
 
 <body>
-
 <div class="container">
 
     <div class="header">
@@ -240,14 +197,14 @@ body {
     <div class="allergeni">
         <h2>Allergeni</h2>
         <ol>
-            <li>Cereali contenenti glutine (grano, segale, orzo, avena, farro...)</li>
+            <li>Cereali contenenti glutine</li>
             <li>Crostacei e prodotti a base di crostacei</li>
             <li>Uova e prodotti a base di uova</li>
             <li>Pesce e prodotti a base di pesce</li>
             <li>Arachidi e prodotti a base di arachidi</li>
             <li>Soia e prodotti a base di soia</li>
             <li>Latte e prodotti a base di latte</li>
-            <li>Frutta a guscio (mandorle, nocciole, noci, pistacchi...)</li>
+            <li>Frutta a guscio</li>
             <li>Sedano e prodotti a base di sedano</li>
             <li>Senape e prodotti a base di senape</li>
             <li>Semi di sesamo e prodotti a base di sesamo</li>
@@ -275,26 +232,13 @@ const menuContainer = document.getElementById("menu");
 function createMenu() {
     menuContainer.innerHTML = "";
 
-    const categoryIcons = {
-        mare: "🌊",
-        terra: "🌿",
-        vini: "🍷",
-        cocktail: "🍸",
-        ...storedIcons
-    };
-
-    const categoryLabels = {
-        mare: "Menù Mare",
-        terra: "Menù Terra",
-        vini: "Carta dei Vini",
-        cocktail: "Cocktail & Distillati",
-        ...storedLabels
-    };
+    const categoryIcons = { mare: "🌊", terra: "🌿", vini: "🍷", cocktail: "🍸", ...storedIcons };
+    const categoryLabels = { mare: "Menù Mare", terra: "Menù Terra", vini: "Carta dei Vini", cocktail: "Cocktail & Distillati", ...storedLabels };
 
     for (let categoria in menuData) {
         const btn = document.createElement("button");
         btn.className = "accordion-btn";
-        btn.innerHTML = `${categoryIcons[categoria] ? categoryIcons[categoria] + " " : "📜 "}${categoryLabels[categoria] || categoria.charAt(0).toUpperCase() + categoria.slice(1)}`;
+        btn.innerHTML = `${categoryIcons[categoria] || "📜"} ${categoryLabels[categoria] || categoria}`;
 
         const content = document.createElement("div");
         content.className = "content";
@@ -329,18 +273,12 @@ function createMenu() {
                 });
             }
 
-            subBtn.onclick = () => {
-                subContent.style.display = subContent.style.display === "block" ? "none" : "block";
-            };
-
+            subBtn.onclick = () => { subContent.style.display = subContent.style.display === "block" ? "none" : "block"; };
             content.appendChild(subBtn);
             content.appendChild(subContent);
         }
 
-        btn.onclick = () => {
-            content.style.display = content.style.display === "block" ? "none" : "block";
-        };
-
+        btn.onclick = () => { content.style.display = content.style.display === "block" ? "none" : "block"; };
         menuContainer.appendChild(btn);
         menuContainer.appendChild(content);
     }
@@ -348,6 +286,5 @@ function createMenu() {
 
 createMenu();
 </script>
-
 </body>
 </html>
