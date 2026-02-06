@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Osteria Monët - Menù</title>
+
+<!-- Font eleganti -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+
+<style>
+/* 🌿 Stile generale */
+body {
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+  background-color: #faf8f5;
+  color: #1a1a1a;
+}
+
+/* 📱 Contenitore principale */
+.container {
+  max-width: 95%;
+  margin: 20px auto;
+  padding: 20px 15px;
+  background: #fff;
+  border: 2px solid #c9a24d;
+  border-radius: 16px;
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
+}
+
+/* 🏷️ Intestazione */
+.header {
+  text-align: center;
+  margin-bottom: 15px;
+}
+.header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 32px;
+  color: #c9a24d;
+  margin-bottom: 5px;
+}
+.header span {
+  font-size: 13px;
+  color: #2f5d50;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* 🍽️ Box degustazione */
+.degustazione {
+  text-align: center;
+  background: #faf6ec;
+  color: #2f5d50;
+  border: 1px dashed #c9a24d;
+  border-radius: 10px;
+  padding: 8px 12px;
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  margin: 15px auto 25px;
+  max-width: 350px;
+}
+
+/* 🔽 Pulsanti categorie */
+.accordion-btn {
+  width: 100%;
+  padding: 14px 16px;
+  margin-top: 12px;
+  font-size: 20px;
+  font-family: 'Playfair Display', serif;
+  background: #ffffff;
+  border: 2px solid #c9a24d;
+  color: #2f5d50;
+  cursor: pointer;
+  text-align: left;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+.accordion-btn:hover {
+  background: #faf6ec;
+  transform: scale(1.01);
+}
+
+/* 🍝 Pulsanti sottosezioni */
+.sub-btn {
+  width: 100%;
+  padding: 10px 14px;
+  margin-top: 8px;
+  font-size: 17px;
+  background: #fdfdfd;
+  border-left: 5px solid #c9a24d;
+  border-right: 2px solid #c9a24d;
+  border-top: none;
+  border-bottom: none;
+  cursor: pointer;
+  text-align: left;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+.sub-btn:hover {
+  background: #f9f5ef;
+}
+
+/* 📜 Contenuto */
+.content {
+  display: none;
+  overflow: hidden;
+  padding: 5px 5px 0;
+  animation: fadeIn 0.4s ease;
+}
+
+/* 🍲 Singolo piatto */
+.menu-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  margin: 8px 0;
+  font-size: 15px;
+  border-bottom: 1px dotted #c9a24d60;
+  padding-bottom: 5px;
+}
+.menu-item span {
+  display: block;
+}
+.item-name {
+  font-weight: 500;
+  font-size: 16px;
+}
+.item-desc {
+  font-size: 13px;
+  color: #555;
+  font-style: italic;
+  margin-top: 2px;
+}
+.price {
+  font-weight: bold;
+  color: #2f5d50;
+  white-space: nowrap;
+  margin-left: 10px;
+  font-size: 14px;
+}
+
+/* ⚠️ Allergeni */
+.allergeni {
+  margin-top: 40px;
+  border-top: 2px solid #c9a24d50;
+  padding-top: 15px;
+}
+.allergeni h2 {
+  font-family: 'Playfair Display', serif;
+  color: #c9a24d;
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 22px;
+}
+.allergeni ol {
+  margin: 0 auto;
+  padding-left: 18px;
+  max-width: 500px;
+  color: #2f5d50;
+  line-height: 1.5;
+  font-size: 13px;
+}
+
+/* ✨ Animazione apertura */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* 📱 Ottimizzazione mobile */
+@media (max-width: 600px) {
+  .header h1 { font-size: 26px; }
+  .accordion-btn { font-size: 18px; padding: 12px; }
+  .sub-btn { font-size: 16px; padding: 10px; }
+  .item-name { font-size: 15px; }
+  .item-desc { font-size: 13px; }
+  .price { font-size: 14px; margin-top: 4px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="header">
+    <h1>Osteria Monët</h1>
+    <span>Cucina d'autore</span>
+  </div>
+
+  <div class="degustazione">Menù degustazione €60</div>
+
+  <div id="menu"></div>
+
+  <div class="allergeni">
+    <h2>Allergeni</h2>
+    <ol>
+      <li>Cereali contenenti glutine</li>
+      <li>Crostacei</li>
+      <li>Uova</li>
+      <li>Pesce</li>
+      <li>Arachidi</li>
+      <li>Soia</li>
+      <li>Latte</li>
+      <li>Frutta a guscio</li>
+      <li>Sedano</li>
+      <li>Senape</li>
+      <li>Semi di sesamo</li>
+      <li>Anidride solforosa e solfiti</li>
+      <li>Lupini</li>
+      <li>Molluschi</li>
+    </ol>
+  </div>
+</div>
+
+<script>
+/* Percorso del file JSON con i dati del menù */
+const menuJSONUrl = "https://osteriamonet.github.io/menu/menuData.json"; 
+const menuContainer = document.getElementById("menu");
+
+/* Carica il JSON e costruisce il menù */
+fetch(menuJSONUrl)
+.then(res => {
+  if (!res.ok) throw new Error("Errore nel caricamento del menù JSON");
+  return res.json();
+})
+.then(menuData => renderMenu(menuData))
+.catch(err => {
+  console.error(err);
+  menuContainer.innerHTML = "<p style='color:red;text-align:center'>Impossibile caricare il menù.</p>";
+});
+
+/* Costruzione dinamica del menù */
+function renderMenu(menuData) {
+  const categoryIcons = { mare: "🌊", terra: "🌿", vini: "🍷", cocktail: "🍸" };
+  const categoryLabels = { mare: "Menù Mare", terra: "Menù Terra", vini: "Carta dei Vini", cocktail: "Cocktail & Distillati" };
+
+  menuContainer.innerHTML = "";
+
+  for (let cat in menuData) {
+    const btn = document.createElement("button");
+    btn.className = "accordion-btn";
+    btn.innerHTML = `${categoryIcons[cat] || "📜"} ${categoryLabels[cat] || cat}`;
+    const content = document.createElement("div");
+    content.className = "content";
+
+    for (let sec in menuData[cat]) {
+      const subBtn = document.createElement("button");
+      subBtn.className = "sub-btn";
+      subBtn.innerText = sec.charAt(0).toUpperCase() + sec.slice(1);
+      const subContent = document.createElement("div");
+      subContent.className = "content";
+      const items = menuData[cat][sec];
+
+      if (items.length === 0) {
+        const empty = document.createElement("p");
+        empty.textContent = "Nessun piatto inserito";
+        empty.style.color = "#777";
+        empty.style.fontStyle = "italic";
+        subContent.appendChild(empty);
+      } else {
+        items.forEach(item => {
+          const div = document.createElement("div");
+          div.className = "menu-item";
+          div.innerHTML = `
+            <div>
+              <span class="item-name">${item.nome || "Senza nome"}</span>
+              ${item.descrizione ? `<span class="item-desc">${item.descrizione}</span>` : ""}
+            </div>
+            <span class="price">${item.prezzo ? "€" + item.prezzo : ""}</span>
+          `;
+          subContent.appendChild(div);
+        });
+      }
+
+      subBtn.onclick = () => {
+        subContent.style.display = subContent.style.display === "block" ? "none" : "block";
+      };
+
+      content.appendChild(subBtn);
+      content.appendChild(subContent);
+    }
+
+    btn.onclick = () => {
+      content.style.display = content.style.display === "block" ? "none" : "block";
+    };
+
+    menuContainer.appendChild(btn);
+    menuContainer.appendChild(content);
+  }
+}
+</script>
+</body>
+</html>
