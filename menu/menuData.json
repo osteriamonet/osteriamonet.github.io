@@ -4,6 +4,11 @@
       "nome": "Carpaccio di tonno",
       "prezzo": "12",
       "descrizione": "Tonno fresco marinato"
+    },
+    {
+      "nome": "Insalata di mare",
+      "prezzo": "14",
+      "descrizione": "Polpo, seppia e gamberi"
     }
   ],
 
@@ -11,6 +16,11 @@
     {
       "nome": "Spaghetti alle vongole",
       "prezzo": "14",
+      "descrizione": ""
+    },
+    {
+      "nome": "Risotto ai frutti di mare",
+      "prezzo": "16",
       "descrizione": ""
     }
   ],
@@ -20,6 +30,14 @@
       "nome": "Tagliata di manzo",
       "prezzo": "18",
       "descrizione": "Rucola e grana"
+    }
+  ],
+
+  "Dolci": [
+    {
+      "nome": "Tiramisù",
+      "prezzo": "6",
+      "descrizione": ""
     }
   ]
 }
