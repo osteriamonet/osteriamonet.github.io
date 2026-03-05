@@ -1,0 +1,29 @@
+{
+  "mare": {
+    "antipasti": [
+      {
+        "nome": "Carpaccio di tonno",
+        "prezzo": "12",
+        "descrizione": "Tonno fresco marinato"
+      }
+    ],
+    "primi": [
+      {
+        "nome": "Spaghetti alle vongole",
+        "prezzo": "14",
+        "descrizione": ""
+      }
+    ]
+  },
+  "terra": {
+    "antipasti": [],
+    "primi": [],
+    "secondi": [
+      {
+        "nome": "Tagliata di manzo",
+        "prezzo": "18",
+        "descrizione": "Rucola e grana"
+      }
+    ]
+  }
+}
