@@ -1,29 +1,31 @@
 {
   "mare": {
-    "antipasti": [
-      {
-        "nome": "Carpaccio di tonno",
-        "prezzo": "12",
-        "descrizione": "Tonno fresco marinato"
-      }
-    ],
-    "primi": [
-      {
-        "nome": "Spaghetti alle vongole",
-        "prezzo": "14",
-        "descrizione": ""
-      }
-    ]
+    "antipasti": [],
+    "primi": [],
+    "secondi": [],
+    "dolci": []
   },
   "terra": {
     "antipasti": [],
-    "primi": [],
-    "secondi": [
+    "primi": [
       {
-        "nome": "Tagliata di manzo",
-        "prezzo": "18",
-        "descrizione": "Rucola e grana"
+        "nome": "non",
+        "prezzo": "15",
+        "descrizione": ""
       }
-    ]
+    ],
+    "secondi": [],
+    "dolci": []
+  },
+  "vini": {
+    "bianchi": [],
+    "rossi": [],
+    "bollicine": [],
+    "dolci": []
+  },
+  "cocktail": {
+    "classici": [],
+    "signature": [],
+    "distillati": []
   }
 }
