@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Menù</title>
+
+<style>
+
+body{
+font-family:Arial;
+margin:0;
+background:#fafafa;
+padding:15px;
+}
+
+h1{
+text-align:center;
+margin-bottom:30px;
+}
+
+.categoria{
+margin-top:30px;
+}
+
+.piatto{
+background:white;
+padding:15px;
+border-radius:10px;
+margin-bottom:10px;
+box-shadow:0 2px 6px rgba(0,0,0,0.1);
+}
+
+.nome{
+font-weight:bold;
+font-size:18px;
+}
+
+.prezzo{
+float:right;
+}
+
+.descrizione{
+font-size:14px;
+color:#666;
+margin-top:5px;
+}
+
+</style>
+</head>
+
+<body>
+
+<h1>Menù</h1>
+
+<div id="menu"></div>
+
+<script>
+
+fetch("menuData.json")
+.then(r=>r.json())
+.then(data=>{
+
+let container=document.getElementById("menu")
+
+for(let categoria in data){
+
+let blocco=document.createElement("div")
+blocco.className="categoria"
+
+let titolo=document.createElement("h2")
+titolo.innerText=categoria
+
+blocco.appendChild(titolo)
+
+data[categoria].forEach(piatto=>{
+
+let div=document.createElement("div")
+div.className="piatto"
+
+div.innerHTML=`
+
+<div class="nome">
+${piatto.nome}
+<span class="prezzo">€${piatto.prezzo}</span>
+</div>
+
+<div class="descrizione">
+${piatto.descrizione || ""}
+</div>
+
+`
+
+blocco.appendChild(div)
+
+})
+
+container.appendChild(blocco)
+
+}
+
+})
+
+</script>
+
+</body>
+</html>
