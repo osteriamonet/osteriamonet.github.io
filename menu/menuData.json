@@ -1,43 +1,43 @@
 {
-  "Antipasti": [
+  "Antipasti":[
     {
-      "nome": "Carpaccio di tonno",
-      "prezzo": "12",
-      "descrizione": "Tonno fresco marinato"
+      "nome":"Carpaccio di tonno",
+      "prezzo":"12",
+      "descrizione":"Tonno fresco marinato"
     },
     {
-      "nome": "Insalata di mare",
-      "prezzo": "14",
-      "descrizione": "Polpo, seppia e gamberi"
+      "nome":"Insalata di mare",
+      "prezzo":"14",
+      "descrizione":"Polpo, seppia e gamberi"
     }
   ],
 
-  "Primi": [
+  "Primi":[
     {
-      "nome": "Spaghetti alle vongole",
-      "prezzo": "14",
-      "descrizione": ""
+      "nome":"Spaghetti alle vongole",
+      "prezzo":"14",
+      "descrizione":"Vongole veraci"
     },
     {
-      "nome": "Risotto ai frutti di mare",
-      "prezzo": "16",
-      "descrizione": ""
+      "nome":"Risotto ai frutti di mare",
+      "prezzo":"16",
+      "descrizione":"Misto mare"
     }
   ],
 
-  "Secondi": [
+  "Secondi":[
     {
-      "nome": "Tagliata di manzo",
-      "prezzo": "18",
-      "descrizione": "Rucola e grana"
+      "nome":"Tagliata di manzo",
+      "prezzo":"18",
+      "descrizione":"Rucola e grana"
     }
   ],
 
-  "Dolci": [
+  "Dolci":[
     {
-      "nome": "Tiramisù",
-      "prezzo": "6",
-      "descrizione": ""
+      "nome":"Tiramisù",
+      "prezzo":"6",
+      "descrizione":"Fatto in casa"
     }
   ]
 }
