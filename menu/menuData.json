@@ -1,0 +1,25 @@
+{
+  "Antipasti": [
+    {
+      "nome": "Carpaccio di tonno",
+      "prezzo": "12",
+      "descrizione": "Tonno fresco marinato"
+    }
+  ],
+
+  "Primi": [
+    {
+      "nome": "Spaghetti alle vongole",
+      "prezzo": "14",
+      "descrizione": ""
+    }
+  ],
+
+  "Secondi": [
+    {
+      "nome": "Tagliata di manzo",
+      "prezzo": "18",
+      "descrizione": "Rucola e grana"
+    }
+  ]
+}
